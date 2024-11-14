@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-import xml.etree.ElementTree as ET
 import subprocess
 import os
+import defusedxml.ElementTree
 
 # 1) Runs lupdate on ../../ui/nim-status-client.pro
 # 2) Fixups qml_base.ts: ensure each source has translation, otherwise Lokalise can't figure out base words
@@ -11,7 +11,7 @@ import os
 
 
 def fixupTranslations(enTsFile: str):
-    tsXmlTree = ET.parse(enTsFile)
+    tsXmlTree = defusedxml.ElementTree.parse(enTsFile)
 
     messageNodes = tsXmlTree.findall('.//message')
 
